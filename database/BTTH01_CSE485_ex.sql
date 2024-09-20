@@ -1,5 +1,5 @@
 -- a, Liệt kê các bài viết về các bài hát thuộc thể loại Nhạc trữ tình
-SELECT * FROM baiviet where ma_tloai = 8;
+SELECT * FROM baiviet where ma_tloai = 2;
 
 -- b, Liệt kê các bài viết của tác giả “Nhacvietplus”
 SELECT * FROM baiviet LEFT JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia WHERE tacgia.ten_tgia = "Nhacvietplus";

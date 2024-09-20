@@ -26,17 +26,18 @@ require 'connection.php';
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">SỬA BÀI VIẾT</h3>
                 <?php
-                    try {
-                        // Kiểm tra xem có tham số id trên URL hay không
-                        if (isset($_GET['id'])) {
-                            $articleId = $_GET['id'];
-                            // Truy vấn để lấy thông tin bài viết theo id
-                            $query = "SELECT * FROM baiviet WHERE ma_bviet = :ma_bviet";
-                            $statement = $connPDO->prepare($query);
-                            $statement->bindParam(':ma_bviet', $articleId);
-                            $statement->execute();
-                            $article = $statement->fetch(PDO::FETCH_ASSOC);
-
+                   try {
+                    // Kiểm tra xem có tham số id trên URL hay không
+                    if (isset($_GET['id'])) {
+                        $articleId = $_GET['id'];
+                        
+                        // Truy vấn để lấy thông tin bài viết theo id
+                        $query = "SELECT * FROM baiviet WHERE ma_bviet = ?";
+                        $statement = $conn->prepare($query);
+                        $statement->bind_param("i", $articleId); // "i" là kiểu integer cho ma_bviet
+                        $statement->execute();
+                        $result = $statement->get_result();
+                        $article = $result->fetch_assoc();
                             // Hiển thị các giá trị trong form
                             echo "
                                 <form action=\"edit_article.php\" method=\"post\">

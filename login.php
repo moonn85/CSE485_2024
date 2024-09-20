@@ -14,7 +14,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $user = $result->fetch_assoc();  // Lấy kết quả truy vấn dưới dạng mảng
 
     if ($user && password_verify($password, $user['password'])) {
-        // Nếu đăng nhập thành công
         header('Location: admin/index.php');  // Chuyển hướng tới trang quản trị
         exit();
     } else {
