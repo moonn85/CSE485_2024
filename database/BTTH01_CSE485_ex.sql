@@ -43,7 +43,6 @@ FROM
 SELECT * FROM vw_Music
 
 -- j, Tạo 1 thủ tục có tên sp_DSBaiViet với tham số truyền vào là Tên thể loại và trả về danh sách Bài viết của thể loại đó. Nếu thể loại không tồn tại thì hiển thị thông báo lỗi.
-DELIMITER $$
 
 CREATE PROCEDURE sp_DSBaiViet(IN tenTheLoai VARCHAR(255))
 BEGIN
