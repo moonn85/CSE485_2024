@@ -1,74 +1,87 @@
--- a, Liệt kê các bài viết về các bài hát thuộc thể loại Nhạc trữ tình
-SELECT * FROM baiviet where ma_tloai = 2;
+-- Truy vấn
 
--- b, Liệt kê các bài viết của tác giả “Nhacvietplus”
-SELECT * FROM baiviet LEFT JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia WHERE tacgia.ten_tgia = "Nhacvietplus";
+-- a) Liệt kê các bài viết về các bài hát thuộc thể loại Nhạc trữ tình
+SELECT * FROM baiviet
+WHERE ma_tloai = (SELECT ma_tloai FROM theloai WHERE ten_tloai = 'Nhạc trữ tình');
 
--- c, Liệt kê các thể loại nhạc chưa có bài viết cảm nhận nào.
-SELECT * from theloai as tl WHERE tl.ma_tloai NOT IN (SELECT bv.ma_tloai FROM baiviet as bv);
+-- b) Liệt kê các bài viết của tác giả “Nhacvietplus”
+SELECT * FROM baiviet
+WHERE ma_tgia = (SELECT ma_tgia FROM tacgia WHERE ten_tgia = 'Nhacvietplus');
 
--- d, Liệt kê các bài viết với các thông tin sau: mã bài viết, tên bài viết, tên bài hát, tên tác giả, tên thể loại, ngày viết.
-SELECT bv.ma_bviet as "mã bài viết", bv.ten_bhat as "tên bài hát", tg.ten_tgia as "tên tác giả", tl.ten_tloai as "tên thể loại", bv.ngayviet as "ngày viết" FROM baiviet as bv LEFT JOIN tacgia as tg ON tg.ma_tgia = bv.ma_tgia LEFT JOIN theloai as tl ON tl.ma_tloai = bv.ma_tloai;
+-- c) Liệt kê các thể loại nhạc chưa có bài viết cảm nhận nào
+SELECT * FROM theloai
+WHERE ma_tloai NOT IN (SELECT DISTINCT ma_tloai FROM baiviet WHERE tomtat IS NOT NULL);
 
--- e, Tìm thể loại có số bài viết nhiều nhất
-SELECT theloai.*,COUNT(baiviet.ma_tloai) as "Số bài viết" FROM theloai
-LEFT JOIN baiviet ON theloai.ma_tloai = baiviet.ma_tloai
-GROUP BY theloai.ma_tloai, theloai.ten_tloai
-ORDER BY COUNT(baiviet.ma_tloai) DESC
-LIMIT 1
+-- d) Liệt kê các bài viết với các thông tin sau: mã bài viết, tên bài viết, tên bài hát, tên tác giả, tên thể loại, ngày viết
+SELECT baiviet.ma_bviet, tieude, ten_bhat, ten_tgia, ten_tloai, ngayviet
+FROM baiviet
+JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia
+JOIN theloai ON baiviet.ma_tloai = theloai.ma_tloai;
 
--- f, Liệt kê 2 tác giả có số bài viết nhiều nhất
-SELECT tacgia.*,COUNT(baiviet.ma_tgia) as "Số bài viết" FROM tacgia
-LEFT JOIN baiviet ON tacgia.ma_tgia = baiviet.ma_tgia
-GROUP BY tacgia.ma_tgia, tacgia.ten_tgia, tacgia.hinh_tgia
-ORDER BY COUNT(baiviet.ma_tgia) DESC
-LIMIT 2
+-- e) Tìm thể loại có số bài viết nhiều nhất
+SELECT ten_tloai, COUNT(*) AS so_bai_viet
+FROM baiviet
+JOIN theloai ON baiviet.ma_tloai = theloai.ma_tloai
+GROUP BY ten_tloai
+ORDER BY so_bai_viet DESC
+LIMIT 1;
 
--- g, . Liệt kê các bài viết về các bài hát có tựa bài hát chứa 1 trong các từ “yêu”, “thương”, “anh”, “em”
-SELECT baiviet.ma_bviet, baiviet.ten_bhat, tacgia.ten_tgia, baiviet.ngayviet, baiviet.hinhanh, baiviet.tomtat, baiviet.noidung, baiviet.ma_tloai FROM baiviet,tacgia WHERE baiviet.ten_bhat LIKE '%yêu%' OR baiviet.ten_bhat LIKE '%thương%' OR baiviet.ten_bhat LIKE '%anh%' OR baiviet.ten_bhat LIKE '%em%';
+-- f) Liệt kê 2 tác giả có số bài viết nhiều nhất
+SELECT ten_tgia, COUNT(*) AS so_bai_viet
+FROM baiviet
+JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia
+GROUP BY ten_tgia
+ORDER BY so_bai_viet DESC
+LIMIT 2;
 
--- i,Tạo 1 view có tên vw_Music để hiển thị thông tin về Danh sách các bài viết kèm theo Tên  thể loại và tên tác giả
+-- g) Liệt kê các bài viết về các bài hát có tựa bài hát chứa 1 trong các từ “yêu”, “thương”, “anh”, “em”
+SELECT *
+FROM baiviet
+WHERE ten_bhat LIKE '%yêu%' OR ten_bhat LIKE '%thương%' OR ten_bhat LIKE '%anh%' OR ten_bhat LIKE '%em%';
+
+-- h) Liệt kê các bài viết về các bài hát có tiêu đề bài viết hoặc tựa bài hát chứa 1 trong các từ “yêu”, “thương”, “anh”, “em”
+SELECT *
+FROM baiviet
+WHERE tieude LIKE '%yêu%' OR tieude LIKE '%thương%' OR tieude LIKE '%anh%' OR tieude LIKE '%em%'
+   OR ten_bhat LIKE '%yêu%' OR ten_bhat LIKE '%thương%' OR ten_bhat LIKE '%anh%' OR ten_bhat LIKE '%em%';
+
+-- i) Tạo 1 view có tên vw_Music để hiển thị thông tin về Danh sách các bài viết kèm theo Tên thể loại và tên tác giả
 CREATE VIEW vw_Music AS
-SELECT
-    bv.ma_bviet,
-    bv.tieude,
-    bv.ten_bhat,
-    tl.ten_tloai AS ten_the_loai,
-    tg.ten_tgia AS ten_tac_gia
-FROM
-    baiviet bv
-    JOIN theloai tl ON bv.ma_tloai = tl.ma_tloai
-    JOIN tacgia tg ON bv.ma_tgia = tg.ma_tgia;
--- Xem view
-SELECT * FROM vw_Music
+SELECT baiviet.ma_bviet, tieude, ten_bhat, ten_tgia, ten_tloai, ngayviet
+FROM baiviet
+JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia
+JOIN theloai ON baiviet.ma_tloai = theloai.ma_tloai;
 
--- j, Tạo 1 thủ tục có tên sp_DSBaiViet với tham số truyền vào là Tên thể loại và trả về danh sách Bài viết của thể loại đó. Nếu thể loại không tồn tại thì hiển thị thông báo lỗi.
-
--- k, Thêm mới cột SLBaiViet vào trong bảng theloai. Tạo 1 trigger có tên tg_CapNhatTheLoai để khi thêm/sửa/xóa bài viết thì số lượng bài viết trong bảng theloai được cập nhật theo.
--- Thêm mới cột SLBaiViet
-ALTER TABLE theloai ADD COLUMN SLBaiViet INT DEFAULT 0;
-
+-- j) Tạo 1 thủ tục có tên sp_DSBaiViet với tham số truyền vào là Tên thể loại và trả về danh sách Bài viết của thể loại đó. Nếu thể loại không tồn tại thì hiển thị thông báo lỗi
 DELIMITER //
+CREATE PROCEDURE sp_DSBaiViet (IN ten_theloai VARCHAR(50))
+BEGIN
+   DECLARE tloai_id INT UNSIGNED;
+   SELECT ma_tloai INTO tloai_id FROM theloai WHERE ten_tloai = ten_theloai;
+   IF tloai_id IS NULL THEN
+      SIGNAL SQLSTATE '45000'
+         SET MESSAGE_TEXT = 'Thể loại không tồn tại.';
+   ELSE
+      SELECT * FROM baiviet WHERE ma_tloai = tloai_id;
+   END IF;
+END //
+DELIMITER ;
+
+-- k) Thêm mới cột SLBaiViet vào trong bảng theloai. Tạo 1 trigger có tên tg_CapNhatTheLoai để khi thêm/sửa/xóa bài viết thì số lượng bài viết trong bảng theloai được cập nhật theo
+DELIMITER //
+
+ALTER TABLE theloai
+ADD COLUMN SLBaiViet INT DEFAULT 0; -- chay lenh them truoc
+
 CREATE TRIGGER tg_CapNhatTheLoai
 AFTER INSERT ON baiviet
 FOR EACH ROW
 BEGIN
-    -- Tăng số lượng bài viết trong thể loại khi 1 bài viết mới được thêm
-    UPDATE theloai
-    SET SLBaiViet = SLBaiViet + 1
-    WHERE ma_tloai = NEW.ma_tloai;
+   UPDATE theloai
+   SET SLBaiViet = SLBaiViet + 1
+   WHERE ma_tloai = NEW.ma_tloai;
 END //
+
 DELIMITER ;
 
--- Bổ sung thêm bảng Users để lưu thông tin Tài khoản đăng nhập
-CREATE TABLE users (
-id int not null primary key auto_increment,
-fullname varchar(255) not null,
-email varchar(255) not null,
-username varchar(255) not null,
-password varchar(255) not null,
-role int(1) DEFAULT 0
-);
 
--- password admin123
-insert into users(email, fullname, username, password) values("admin@gmail.com", "Admin", "$2y$10$4styoFP49X.JsTbbE5QYnO8LUADCf7GNscHACW5O/Mcd78hVMzbDa");

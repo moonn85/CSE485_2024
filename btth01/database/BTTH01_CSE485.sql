@@ -167,3 +167,16 @@ VALUES (
 "Ánh nắng cuối ngày rồi cũng sẽ tắt, dòng sông con đò rồi cũng sẽ rẽ sang một hướng khác. Nhưng việc trồng người luôn cảm thụ với chuyến đò ngang, cứ tần tảo đưa rồi lặng lẽ quay về đưa sang. Con đò năm xưa của Thầy nặng trĩu yêu thương, hy sinh thầm lặng.",
 8, "2014/1/2"
 );
+
+-- Bổ sung thêm bảng Users để lưu thông tin Tài khoản đăng nhập
+CREATE TABLE users (
+id int not null primary key auto_increment,
+fullname varchar(255) not null,
+email varchar(255) not null,
+username varchar(255) not null,
+password varchar(255) not null,
+role int(1) DEFAULT 0
+);
+
+-- password admin123
+insert into users(email, fullname, username, password) values("admin@gmail.com", "Admin", "$2y$10$4styoFP49X.JsTbbE5QYnO8LUADCf7GNscHACW5O/Mcd78hVMzbDa");
