@@ -1,6 +1,6 @@
 Tài khoản đăng nhập
 </br>
 
-tk : admin123
+Tài khoản : admin123
 </br>
-mk : admin123
+Mật Khẩu : admin123
