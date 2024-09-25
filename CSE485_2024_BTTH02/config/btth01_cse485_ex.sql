@@ -1,4 +1,4 @@
--- create database BTTH01_CSE485;
+﻿-- create database BTTH01_CSE485;
 
 -- use BTTH01_CSE485;
 
@@ -167,16 +167,4 @@ VALUES (
 "Ánh nắng cuối ngày rồi cũng sẽ tắt, dòng sông con đò rồi cũng sẽ rẽ sang một hướng khác. Nhưng việc trồng người luôn cảm thụ với chuyến đò ngang, cứ tần tảo đưa rồi lặng lẽ quay về đưa sang. Con đò năm xưa của Thầy nặng trĩu yêu thương, hy sinh thầm lặng.",
 8, "2014/1/2"
 );
--- Bổ sung thêm bảng Users để lưu thông tin Tài khoản đăng nhập
-CREATE TABLE nguoidung (
-  ma_ndung int(15) NOT NULL,
-  username varchar(50) NOT NULL,
-  password varchar(50) NOT NULL
-) 
-INSERT INTO `nguoidung` (`ma_ndung`, `username`, `password`) VALUES
-(1, 'vutuan', '08052004'),
-(4, 'dohuong', '18022004'),
-(5, 'nguyenhieu', '0612004');
-
-
 
