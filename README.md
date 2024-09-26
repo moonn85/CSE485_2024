@@ -1,6 +1,9 @@
-Bài tập nhóm môn công nghệ Web .
+Bài tập nhóm môn công nghệ Web.
+Thành viên nhóm :
+1. Vũ Anh Tuấn
+2. Nguyễn Yên Hiếu
+3. Đỗ Thị Mai Hương
 
-</br>
 Tài khoản : admin
-</br>
+
 Mật khẩu: admin123
