@@ -1,8 +1,8 @@
 <?php
-require '../config/connection.php'; // Kết nối cơ sở dữ liệu
-require '../models/model_article.php'; // Import model xử lý bài viết
+require '../config/connection.php'; 
+require '../models/model_article.php'; 
 
-$articleModel = new ArticleModel($conn); // Khởi tạo model
+$articleModel = new ArticleModel($conn);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['tieude'];
