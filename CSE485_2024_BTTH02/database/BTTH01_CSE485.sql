@@ -168,18 +168,13 @@ VALUES (
 8, "2014/1/2"
 );
 -- Bổ sung thêm bảng Users để lưu thông tin Tài khoản đăng nhập
-CREATE TABLE users (
-id int not null primary key auto_increment,
-fullname varchar(255) not null,
-email varchar(255) not null,
-username varchar(255) not null,
-password varchar(255) not null,
-role int(1) DEFAULT 0
+create table users(
+	id int primary key not null AUTO_INCREMENT,
+	userName varchar(50),
+	pw varchar(20)
 );
 
--- password admin123
-insert into users(email, fullname, username, password) values("admin@gmail.com", "Admin", "$2y$10$4styoFP49X.JsTbbE5QYnO8LUADCf7GNscHACW5O/Mcd78hVMzbDa");
-
+INSERT INTO users (userName,pw) VALUES ('Admin','admin123');
 
 
 

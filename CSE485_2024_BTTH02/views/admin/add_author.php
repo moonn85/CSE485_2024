@@ -1,3 +1,5 @@
+<!--file giao diện thêm tác giả -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold" aria-current="page" href="./">Trang chủ</a>
+                        <a class="nav-link" aria-current="page" href="./">Trang chủ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../index.php">Trang ngoài</a>
@@ -31,7 +33,7 @@
                         <a class="nav-link" href="category.php">Thể loại</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="author.php">Tác giả</a>
+                        <a class="nav-link active fw-bold" href="author.php">Tác giả</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="article.php">Bài viết</a>
@@ -45,60 +47,23 @@
     <main class="container mt-5 mb-5">
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
-            <div class="col-sm-3">
-                <div class="card mb-2" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Người dùng</a>
-                        </h5>
-
-                        <h5 class="h1 text-center">
-                            110
-                        </h5>
+            <div class="col-sm">
+                <h3 class="text-center text-uppercase fw-bold">Thêm mới tác giả</h3>    
+                <form action="../../controllers/controller_add_author.php" method="post" >
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="lblAuthorName">Tên tác giả</span>
+                        <input type="text" class="form-control" name="txtAuthorName" >
                     </div>
-                </div>
-            </div>
-
-            <div class="col-sm-3">
-                <div class="card mb-2" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Thể loại</a>
-                        </h5>
-
-                        <h5 class="h1 text-center">
-                            10
-                        </h5>
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="imgAuthor">Hình tác giả</span>
+                        <input type="file" class="form-control" name="imgAuthor">
                     </div>
-                </div>
-            </div>
 
-            <div class="col-sm-3">
-                <div class="card mb-2" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Tác giả</a>
-                        </h5>
-
-                        <h5 class="h1 text-center">
-                            20
-                        </h5>
+                    <div class="form-group  float-end ">
+                        <input type="submit" value="Thêm" class="btn btn-success" >
+                        <a href="author.php" class="btn btn-warning ">Quay lại</a>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-sm-3">
-                <div class="card mb-2" style="width: 100%;">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Bài viết</a>
-                        </h5>
-
-                        <h5 class="h1 text-center">
-                            110
-                        </h5>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </main>
