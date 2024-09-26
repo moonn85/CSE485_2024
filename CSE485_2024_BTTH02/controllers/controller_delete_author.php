@@ -1,7 +1,6 @@
 <?php 
-    // controllers/controller_delete_author.php
-require '../config/connection.php'; // Kết nối cơ sở dữ liệu
-require '../models/model_author.php'; // Gọi model của tác giả
+require '../config/connection.php'; 
+require '../models/model_author.php';
 
 $authorModel = new AuthorModel($conn);
 

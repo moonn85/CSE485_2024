@@ -1,4 +1,3 @@
-<!--file model bài viết -->
 <?php
 class ArticleModel {
     private $conn;

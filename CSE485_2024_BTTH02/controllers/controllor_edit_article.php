@@ -1,7 +1,6 @@
 <<?php 
-    // controllers/controller_edit_article.php
-require '../config/connection.php'; // Kết nối cơ sở dữ liệu
-require '../models/model_article.php'; // Gọi model của bài viết
+require '../config/connection.php'; 
+require '../models/model_article.php'; 
 
 $articleModel = new ArticleModel($conn);
 

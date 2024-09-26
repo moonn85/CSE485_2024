@@ -1,6 +1,4 @@
-<!--file model thể loại -->
 <?php
-// models/model_category.php
 class CategoryModel {
     private $conn;
 

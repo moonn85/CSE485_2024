@@ -1,7 +1,6 @@
 <?php 
-    // controllers/controller_edit_category.php
-require '../config/connection.php'; // Kết nối cơ sở dữ liệu
-require '../models/model_category.php'; // Gọi model của thể loại
+require '../config/connection.php'; 
+require '../models/model_category.php'; 
 
 $categoryModel = new CategoryModel($conn);
 

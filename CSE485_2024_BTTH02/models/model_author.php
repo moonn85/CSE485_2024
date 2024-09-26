@@ -1,6 +1,4 @@
-<!--file model tác giả -->
 <?php
-// models/model_author.php
 class AuthorModel {
     private $conn;
 
