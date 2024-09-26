@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userName = $_POST['username'];
     $pw = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE userName = ?";
+    $sql = "SELECT * FROM users WHERE username = ?";
     $temp = $conn->prepare($sql);
     $temp->bind_param("s", $userName);
     $temp->execute();
@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($result->num_rows > 0) {
         $users = $result->fetch_assoc();        
-        if ($pw == $users['pw']) {
+        if (password_verify($pw, $users['password'])) {
+            $_SESSION['username'] = $userName;  
             header("Location: ../views/admin"); 
             exit();
         } else {

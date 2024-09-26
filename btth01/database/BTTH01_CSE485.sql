@@ -178,7 +178,7 @@ role int(1) DEFAULT 0
 );
 
 -- password admin123
-insert into users(email, fullname, username, password) values("admin@gmail.com", "Admin", "$2y$10$4styoFP49X.JsTbbE5QYnO8LUADCf7GNscHACW5O/Mcd78hVMzbDa");
+insert into users(email, fullname, username, password) values("admin@gmail.com","Admin", "Admin", "$2y$10$4styoFP49X.JsTbbE5QYnO8LUADCf7GNscHACW5O/Mcd78hVMzbDa");
 
 
 
