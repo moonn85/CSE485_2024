@@ -55,7 +55,7 @@
                         $sql = "SELECT * from tacgia where ma_tgia = ?";
                         $temp = $conn -> prepare($sql);
                         if ($temp === false){
-                            die("Lỗi rồi cu: " . $conn -> error);
+                            die("Lỗi: " . $conn -> error);
                         }
                         $temp -> bind_param("i", $id);
                         $temp->execute();

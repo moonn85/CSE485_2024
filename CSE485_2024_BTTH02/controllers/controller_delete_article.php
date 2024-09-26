@@ -1,34 +1,32 @@
 <?php
-    include '../config/connection.php';
+    // controllers/controller_delete_article.php
+require '../config/connection.php'; // Kết nối cơ sở dữ liệu
+require '../models/model_article.php'; // Gọi model xử lý bài viết
 
-    $id = $_GET['id'];
-    
-    $sql = "DELETE from baiviet WHERE ma_bviet = ?";
-    $temp = $conn -> prepare($sql);
-    if($temp === false){
-        $message_error_query = "Lỗi query: ";
-        $redirectUrl_error_query = "../views/admin/article.php";
-        
-        echo "<script type='text/javascript'>alert('$message_error_query" . $conn -> error . "');";
-        echo " window.location.href = '$redirectUrl_error_query';";
-        echo "</script>;";
-    }
+$articleModel = new ArticleModel($conn);
 
-    $temp -> bind_param("i",$id);
+$id = $_GET['id'];
 
-    if ($temp -> execute()){
+if (!empty($id)) {
+    if ($articleModel->deleteArticle($id)) {
         $message_success = "Xóa thông tin thành công";
         $redirectUrl_success = "../views/admin/article.php";
         echo "<script type='text/javascript'>alert('$message_success');";
-        echo " window.location.href = '$redirectUrl_success';";
+        echo "window.location.href = '$redirectUrl_success';";
+        echo "</script>;";
+    } else {
+        $message_error_query = "Lỗi query: " . $conn->error;
+        $redirectUrl_error_query = "../views/admin/article.php";
+        echo "<script type='text/javascript'>alert('$message_error_query');";
+        echo "window.location.href = '$redirectUrl_error_query';";
         echo "</script>;";
     }
-    else{
-        $message_error_execute = "Lỗi execute: ";
-        $redirectUrl_error_execute = "../views/admin/article.php?id=".$id;
-        echo "<script type='text/javascript'>alert('$message_error_execute" . $temp -> error . "');";
-        echo " window.location.href = '$redirectUrl_error_execute';";
-        echo "</script>;";
-    }
-    $temp -> close();        
+} else {
+    $message_missing_id = "Không tìm thấy ID bài viết!";
+    $redirectUrl_missing_id = "../views/admin/article.php";
+    echo "<script type='text/javascript'>alert('$message_missing_id');";
+    echo "window.location.href = '$redirectUrl_missing_id';";
+    echo "</script>;";
+}
+        
 ?>
